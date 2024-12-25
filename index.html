@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech & Expression Review</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function showUploadMessage() {
+            alert('Your video is being uploaded and analyzed. Thank you!');
+        }
+        function startLiveTracking() {
+            const video = document.getElementById('liveVideo');
+            const status = document.getElementById('trackingStatus');
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    video.srcObject = stream;
+                    video.play();
+                    status.textContent = "🔴 Live Tracking Active";
+                    status.style.color = "#0f0";
+                })
+                .catch(function (error) {
+                    console.log("Error accessing webcam: ", error);
+                    status.textContent = "⚫ Live Tracking Inactive";
+                    status.style.color = "#f00";
+                });
+            }
+        }
+    </script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 5% auto;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 1.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        header h1 {
+            font-size: 4em;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        header p {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            color: #ddd;
+        }
+        .live-tracking, .upload-section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        video {
+            width: 80%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .live-btn, .upload-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: #FFD700;
+            color: #333;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .live-btn:hover, .upload-btn:hover {
+            background-color: #FFC107;
+        }
+        #trackingStatus {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .feature {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-10px);
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5em;
+            }
+            video {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>English Speaking & Facial Expression Review</h1>
+            <p>Enhance your communication skills with AI-driven feedback and insights.</p>
+        </header>
+        
+        <section class="intro feature">
+            <h2>Video Upload Analysis</h2>
+            <p>Upload a video of yourself speaking, and our system will analyze your speech and facial expressions to provide detailed feedback.</p>
+            <button class="upload-btn" onclick="showUploadMessage()">Upload Video</button>
+        </section>
+        
+        <section class="live-tracking feature">
+            <h2>🔴 Live Facial & Speech Tracking</h2>
+            <p>Track your facial expressions and speech quality live using your webcam.</p>
+            <button class="live-btn" onclick="startLiveTracking()">Start Live Tracking</button>
+            <video id="liveVideo" autoplay muted></video>
+            <p id="trackingStatus">⚫ Live Tracking Inactive</p>
+        </section>
+        
+        <footer>
+            <p>&copy; 2024 Speech Review. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
